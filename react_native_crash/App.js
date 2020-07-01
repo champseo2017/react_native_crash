@@ -1,21 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React,{useState} from 'react';
+import { View, Text, StyleSheet,FlatList } from 'react-native';
+import Header from './components/Header'
+import shortid from 'shortid';
+import ListItem from './components/ListItem'
 
-export default function App() {
+const App = () => {
+  const [items, setItems] = useState([
+      {id:shortid.generate(),text:'Milk'},
+      {id:shortid.generate(),text:'Eggs'},
+      {id:shortid.generate(),text:'Bread'},
+      {id:shortid.generate(),text:'Juice'}
+  ]);
+  
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+       <Header/>
+       <FlatList data={items} renderItem={({item}) => (
+          <ListItem item={item}/>
+       )}/>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    paddingTop:60
+  }
+})
+
+export default App;
